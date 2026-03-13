@@ -33,7 +33,7 @@ mamba activate snakemake
 
 Clone the repository into the desired run folder
 ```bash
-git clone https://github.com/Boyoron/CapMux.git run
+git clone https://github.com/Boyoron/CapMux.git
 ```
 
 Perform the run of the workflow using snakemake
