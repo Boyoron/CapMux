@@ -1,0 +1,8 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - gawk = 5.3.1    # GNU awk
+  - coreutils = 9.5 # Contains paste, cp
+  - gzip = 1.14     # Compression tools
+  - pigz = 2.8

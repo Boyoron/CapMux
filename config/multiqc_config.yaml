@@ -1,0 +1,76 @@
+report_section_order:
+  software_versions:
+    order: -1000
+
+export_plots: true
+
+top_modules:
+  - 'star'
+  - 'custom_content'
+
+custom_data:
+  starsolo_summary:
+    section_name: 'Summary'
+    parent_id: 'custom_content'
+    parent_name: 'STARsolo'
+    file_format: 'csv'
+    plot_type: 'table'
+
+  starsolo_umi:
+    id: 'starsolo_umi'
+    section_name: 'UMI Metrics'
+    parent_id: 'custom_content'
+    parent_name: 'STARsolo'
+    file_format: 'tsv'
+    plot_type: 'linegraph'
+    pconfig:
+      title: 'Barcode rank plot'
+      ylab: 'UMI counts'
+      xlab: 'Cell Barcodes'
+      yLog: true
+      xLog: true
+
+  starsolo_barcode:
+    id: 'starsolo_barcode'
+    section_name: 'Barcode Stats'
+    parent_id: 'custom_content'
+    parent_name: 'STARsolo'
+    file_format: 'tsv'
+    plot_type: 'bargraph'
+    pconfig:
+      title: 'Barcode Stats'
+      xlab: '# Reads'
+
+  starsolo_feature:
+    id: 'starsolo_feature'
+    section_name: 'Feature Stats'
+    parent_id: 'custom_content'
+    parent_name: 'STARsolo'
+    file_format: 'tsv'
+    plot_type: 'bargraph'
+    pconfig:
+      title: 'Feature Stats'
+      xlab: '# Reads'
+
+fn_clean_sample_names:
+  - type: 'remove'
+    pattern: '_Summary.csv'
+  - type: 'remove'
+    pattern: '_UMIperCellSorted.txt'
+  - type: 'remove'
+    pattern: '_Barcodes.stats'
+  - type: 'remove'
+    pattern: '_Features.stats'
+  - type: 'regex_keep'
+    pattern: '(_trimmed)'
+    replacement: '\1'
+
+sp:
+  starsolo_summary:
+    fn: '*_Summary.csv'
+  starsolo_umi:
+    fn: '*_UMIperCellSorted.txt'
+  starsolo_barcode:
+    fn: '*_Barcodes.stats'
+  starsolo_feature:
+    fn: '*_Features.stats'

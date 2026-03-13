@@ -1,0 +1,28 @@
+run_dir: "/tmp/Mazutislab-out/denis/runs/250805_VH00531_733_AAH3M2YM5"
+out_dir: "results"
+sample_sheet: "/tmp/Mazutislab-out/denis/runs/250805_VH00531_733_AAH3M2YM5/250805_extended_sample_sheet_onlymix_bc1.xlsx"
+tso_seq: "AAGCAGTGGTATCAACGCAGAGTACAT"
+demux_by: "bc1"
+run_mode: "bcl"
+fastq_dir: ""
+demux_index: "i7"
+use_bases_mask: ""
+barcode:
+  allow_mismatches: 1
+  segments:
+    bc1:  {start: 32, len: 8}
+    bc2:  {start: 18, len: 10}
+    bc3:  {start: 5,  len: 8}
+    umi1: {start: 1,  len: 4}
+    umi2: {start: 40, len: 4}
+  whitelists:
+    bc1: "assets/barcodes/bc1_list.txt"
+    bc2: "assets/barcodes/bc2_list.txt"
+    bc3: "assets/barcodes/bc3_list.txt"
+    index:  ""
+star:
+  features: "GeneFull"
+  cb_match: "EditDist_2"
+  index: "/home/simonasj/references/genome/GRCm39_Ensembl_107/index/"
+threads: 16
+memory: 64G

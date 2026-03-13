@@ -1,0 +1,21 @@
+import os
+
+
+configfile: "config/config.yaml"
+
+
+include: "rules/common.smk"
+include: "rules/demux.smk"
+include: "rules/processFASTQ.smk"
+include: "rules/align.smk"
+include: "rules/qc.smk"
+
+
+rule all:
+    input:
+        expand(
+            "{out}/mapped/{sample}/{sample}_Aligned.sortedByCoord.out.bam",
+            sample=get_sample_ids,
+            out=config["out_dir"],
+        ),
+        os.path.join(config["out_dir"], "qc/multiqc_report.html"),

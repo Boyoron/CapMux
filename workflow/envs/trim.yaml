@@ -1,0 +1,6 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - cutadapt = 5.0
+  - seqkit = 2.10.0

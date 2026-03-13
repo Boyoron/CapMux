@@ -1,0 +1,89 @@
+# -----------------------------
+# Snakemake pipeline config.yaml with comments
+# -----------------------------
+
+
+# ---- Inputs / outputs ----
+run_dir: "/tmp/Mazutislab-out/denis/runs/250805_VH00531_733_AAH3M2YM5"
+# Path to Illumina folder containing BCL files. Used only when run_mode = bcl.
+
+out_dir: "results"
+# Output root directory where the pipeline results will be stored.
+
+sample_sheet: "/tmp/Mazutislab-out/denis/runs/250805_VH00531_733_AAH3M2YM5/250805_extended_sample_sheet_onlymix_bc1.xlsx"
+# Extended sample sheet (.xlsx) used by the workflow to describe barcode‑to‑sample mapping.
+
+sequencer: "nextseq"
+# [miseq, nextseq] Illumina sequencer type.
+
+tso_seq: "AAGCAGTGGTATCAACGCAGAGTACAT"
+# Template-switch oligo (TSO) sequence used in reverse transcription reaction protocol (used for trimming).
+
+# ---- Demultiplexing selection ----
+# demux_by:
+#   - "index": Illumina demux only; barcode read is built from R1 segments (BCs + UMIs), index is not appended.
+#   - "bc1"  : additional demux step by BC1 is performed; barcode read includes index (I1) between BCs and UMIs.
+demux_by: "bc1"
+# [index, bc1]
+
+# run_mode:
+#   - "bcl"   : start from Illumina BLC files containing folder (run_dir) and run bcl2fastq.
+#   - "fastq" : start from an existing folder of fastq.gz files (fastq_dir).
+#              FASTQs must already be in Illumina-style naming (e.g. SAMPLE_S1_R1_001.fastq.gz etc.)
+run_mode: "bcl"
+# [bcl, fastq]
+
+fastq_dir: ""
+# Used only when run_mode = fastq. Folder containing pre-made fastq.gz files in Illumina naming style.
+# Leave as "" when run_mode = bcl.
+
+demux_index: "i7"
+# [i7, i5, i7_i5] Select index reads which are used by Illumina demultiplexing (bcl2fastq).
+
+use_bases_mask: ""
+# Optional parameter. Custom bcl2fastq --use-bases-mask string (e.g. "y*,I*,y*").
+# Leave "" to use the pipeline default mask.
+
+# ---- Barcode / UMI parsing ----
+barcode:
+  allow_mismatches: 1
+  # int. Used only when demux_by = bc1.
+  # Allowed mismatches when matching BC1 to whitelist.
+
+  # 1-based coordinates on R1. Disable a segment by selecting start: 0 and len: 0.
+  # start = 1 means the first nucleotide of R1.
+  # If barocding design consist of only one UMI (umi1), set umi2: {start: 0, len: 0}.
+  segments:
+    bc1:  {start: 32, len: 8}   # BC1 segmenet location on R1
+    bc2:  {start: 18, len: 10}  # BC2 segmenet location on R1
+    bc3:  {start: 5,  len: 8}   # BC3 segmenet location on R1
+    umi1: {start: 1,  len: 4}   # UMI1 segmenet location on R1
+    umi2: {start: 40, len: 4}   # UMI2 segmenet location on R1. 
+
+  # Whitelist files (one sequence per line) for enabled barcode segments.
+  # NOTE: If your workflow appends the index read into the constructed barcode string, provide `index`.
+  whitelists:
+    bc1: "assets/barcodes/bc1_list.txt"  # BC1 whitelist path
+    bc2: "assets/barcodes/bc2_list.txt"  # BC2 whitelist path
+    bc3: "assets/barcodes/bc3_list.txt"  # BC3 whitelist path
+    index: ""                            # Optional index whitelist. Leave "" if unused or all indexes are provided in extended_sample_sheet.xlsx
+
+# ---- STAR / STARsolo parameters ----
+star:
+  features: "GeneFull"
+  # [Gene, GeneFull]
+  # Genomic features for which the UMI counts per cell barcode are quantified
+
+  cb_match: "EditDist_2"
+  # [Exact, 1MM, 1MM_multi, EditDist_2]
+  # STARsolo cell-barcode matching strategy.
+
+  index: "/home/simonasj/references/genome/GRCm39_Ensembl_107/index/"
+  # Path to STAR genome index directory
+
+# ---- Resources ----
+threads: 16
+# Default number of CPU threads.
+
+memory: "64G"
+# Default RAM allocation (e.g., 64G).
