@@ -8,6 +8,10 @@
 
 Single-cell RNA sequencing methods based on split-pool combinatorial barcoding enable high-throughput profiling, but sample identity is often introduced during early barcoding steps rather than through the final Illumina library index. Consequently, reads from multiple biological samples remain pooled until relatively late stages of data processing, complicating per-sample analysis and selective extraction of samples of interest. Here, I present CapMux, a Snakemake-based pipeline for processing split-pool scRNA-seq data, from raw sequencing files to sample-resolved outputs. CapMux supports workflows starting from either Illumina BCL files or pre-generated FASTQ files and reconstructs sample identity by integrating sub-library index information with experiment-specific barcoding plate layout. The pipeline was developed for the CapSeq method but is configurable for related scRNA-seq combinatorial barcoding designs through specification of barcode positions, linker structure, and experimental layout. CapMux resolves pooled data into outputs for each sample, enabling independent quality-control summaries, mapping statistics, count matrices, and downstream visualizations. Runtime benchmarking indicated that secondary demultiplexing added only a modest computational overhead. Together, these results show that CapMux provides a practical and adaptable framework for recovering sample-level resolution from split-pool scRNA-seq data.
 
+<p align="center">
+  <img src="examples/figure1_v1.png" alt="CapMux workflow" width="800">
+</p>
+<p align="center"><em>Overview of the CapMux workflow.</em></p>
 
 
 ## Features
