@@ -170,6 +170,9 @@ If you use CapMux, please cite:
 
 > Denis Baronas et al., **High-throughput single cell omics using semipermeable capsules.** *Science* DOI:https://doi.org/10.1126/science.ady7227 (2025)
 
+> Denis Baronas, **CapMux: a Snakemake pipeline for early demultiplexing of split-pool scRNA-seq data into sample-resolved outputs.** *Frontiers in Bioinformatics* DOI:https://doi.org/10.3389/fbinf.2026.1846065 (2026)
+
+
 
 ## License
 [![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)
